@@ -53,6 +53,18 @@ Mỗi lần push, workflow `.github/workflows/ios.yml` chạy unit test rồi bu
 
 Sau đó cài bằng một trong các cách dưới. App tự đọc tên App Group thật từ chữ ký, nên công cụ sideload có đổi tên group thì app vẫn chạy.
 
+Bản mới nhất luôn có ở [Releases → latest](https://github.com/diepnt27/DF/releases/tag/latest) (file `MangaTrans.ipa`), tải thẳng trên iPhone được.
+
+#### SideStore (miễn phí, gia hạn ngay trên iPhone — khuyên dùng)
+
+1. iPhone: đặt mật mã màn hình, cài **LocalDevVPN** từ App Store.
+2. Máy tính (chỉ cần lần đầu): tải [iloader](https://github.com/nab138/iloader/releases). Windows cần thêm iTunes bản tải từ apple.com.
+3. Cắm iPhone → **Tin cậy** → mở iloader, đăng nhập Apple ID (nên dùng Apple ID phụ) → **Install SideStore**.
+4. iPhone: **Cài đặt → Cài đặt chung → Quản lý VPN & thiết bị** → tin cậy Apple ID; bật **Chế độ nhà phát triển** rồi khởi động lại.
+5. Bật LocalDevVPN → mở SideStore, đăng nhập cùng Apple ID.
+6. Tải `MangaTrans.ipa` từ Releases bằng Safari → SideStore → **My Apps** → **+** → chọn file. Nếu được hỏi về App Extensions, chọn **giữ lại** (Keep) — extension là phần quét màn hình.
+7. Mỗi 7 ngày: bật LocalDevVPN → SideStore → **Refresh All**.
+
 #### Sideloadly (Windows hoặc Mac, dùng Apple ID miễn phí)
 
 1. Cài [Sideloadly](https://sideloadly.io). Trên Windows cần thêm iTunes và iCloud **bản tải từ web Apple** (không dùng bản Microsoft Store).
