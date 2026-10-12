@@ -51,7 +51,24 @@ Tài khoản Apple miễn phí cũng dùng được (app hết hạn sau 7 ngày
 
 Mỗi lần push, workflow `.github/workflows/ios.yml` chạy unit test rồi build file **`MangaTrans-unsigned.ipa`**. Vào tab **Actions** → chọn lần chạy → mục **Artifacts** để tải về.
 
-Sau đó cài bằng Sideloadly, AltStore, eSign hoặc TrollStore. Công cụ ký lại phải giữ quyền **App Groups** cho cả app lẫn extension, nếu không app sẽ báo *"App chưa được cấp quyền App Group"*.
+Sau đó cài bằng một trong các cách dưới. App tự đọc tên App Group thật từ chữ ký, nên công cụ sideload có đổi tên group thì app vẫn chạy.
+
+#### Sideloadly (Windows hoặc Mac, dùng Apple ID miễn phí)
+
+1. Cài [Sideloadly](https://sideloadly.io). Trên Windows cần thêm iTunes và iCloud **bản tải từ web Apple** (không dùng bản Microsoft Store).
+2. Cắm iPhone vào máy tính bằng cáp và bấm **Tin cậy** trên điện thoại.
+3. Kéo file `MangaTrans-unsigned.ipa` vào Sideloadly, nhập Apple ID rồi bấm **Start**. Nên dùng một Apple ID phụ.
+4. Trên iPhone, vào **Cài đặt → Cài đặt chung → Quản lý VPN & thiết bị** → chọn Apple ID của bạn → **Tin cậy**.
+5. iOS 16 trở lên: vào **Cài đặt → Quyền riêng tư & bảo mật → Chế độ nhà phát triển** → bật, rồi khởi động lại máy.
+
+Apple ID miễn phí: app hết hạn sau **7 ngày** và phải cài lại bằng Sideloadly (dữ liệu vẫn giữ nguyên). Mỗi Apple ID chỉ cài được tối đa 3 app sideload cùng lúc.
+
+#### Các cách khác
+
+- **AltStore**: tương tự Sideloadly, cũng hạn 7 ngày, nhưng tự gia hạn qua Wi-Fi khi máy tính chạy AltServer.
+- **Chứng chỉ trả phí** (eSign, Scarlet, Feather…): ký trực tiếp trên điện thoại, không cần máy tính, dùng được lâu hơn. Chứng chỉ phải hỗ trợ App Groups.
+- **TrollStore** (chỉ iOS 14.0 – 17.0): cài vĩnh viễn, không phải ký lại.
+- **Tài khoản Apple Developer** (99$/năm) + Mac: build bằng Xcode, app dùng được 1 năm.
 
 ## Sử dụng
 

@@ -148,6 +148,36 @@ final class TranslatorParsingTests: XCTestCase {
     }
 }
 
+final class AppGroupTests: XCTestCase {
+    func testReadsGroupsFromProvisioningProfile() {
+        let plist = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <plist version="1.0"><dict><key>Entitlements</key><dict>
+        <key>com.apple.security.application-groups</key>
+        <array><string>group.com.diepnt.mangatrans.ABC123</string></array>
+        </dict></dict></plist>
+        """
+        var data = Data([0x30, 0x82, 0x01, 0xFF, 0x00])
+        data.append(Data(plist.utf8))
+        data.append(Data([0xA0, 0x00, 0x31]))
+        XCTAssertEqual(AppGroup.appGroups(fromProvisioningProfile: data), ["group.com.diepnt.mangatrans.ABC123"])
+        XCTAssertEqual(AppGroup.appGroups(fromProvisioningProfile: Data("garbage".utf8)), [])
+    }
+
+    func testPicksRenamedGroup() {
+        let configured = "group.com.diepnt.mangatrans"
+        XCTAssertEqual(AppGroup.pickIdentifier(from: ["group.other", "group.com.diepnt.mangatrans.XYZ"],
+                                               configured: configured, isUsable: { _ in true }),
+                       "group.com.diepnt.mangatrans.XYZ")
+        XCTAssertEqual(AppGroup.pickIdentifier(from: ["group.x", configured], configured: configured, isUsable: { _ in true }),
+                       configured)
+        XCTAssertEqual(AppGroup.pickIdentifier(from: ["group.renamed"], configured: configured, isUsable: { _ in true }),
+                       "group.renamed")
+        XCTAssertEqual(AppGroup.pickIdentifier(from: ["*"], configured: configured, isUsable: { _ in true }), configured)
+        XCTAssertEqual(AppGroup.pickIdentifier(from: [], configured: configured, isUsable: { _ in false }), configured)
+    }
+}
+
 final class PiPRendererTests: XCTestCase {
     func testRendersBufferOfRequestedSize() throws {
         let content = PiPContent(entries: [
